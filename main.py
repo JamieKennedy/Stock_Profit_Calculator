@@ -12,6 +12,8 @@ def main(csv_file):
 
     sales = get_sales(df)
 
+
+
     profit = 0
 
     for index, row in sales.iterrows():
@@ -21,7 +23,7 @@ def main(csv_file):
 
 
 def get_sales(df):
-    return df[df.Action == "Market sell"]
+    return df.query('Action in ["Market sell", "Limit sell", "Stop sell"]')
 
 
 if __name__ == '__main__':
