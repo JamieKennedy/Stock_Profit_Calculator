@@ -41,4 +41,4 @@ if __name__ == '__main__':
     if len(args) > 1:
         main(args[1])
     else:
-        print("Please specify as location for the .csv")
+        print("Please specify a location for the .csv")
