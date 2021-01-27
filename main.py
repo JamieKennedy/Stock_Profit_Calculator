@@ -1,16 +1,33 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import pandas as pd
+import sys
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main(csv_file):
+
+    try:
+        df = pd.read_csv(csv_file)
+    except:
+        print("Unable to open {}".format(csv_file))
+        return
+
+    sales = get_sales(df)
+
+    profit = 0
+
+    for index, row in sales.iterrows():
+        profit += row["Result (GBP)"]
+
+    print("Profit: £{:,.2f}".format(profit))
 
 
-# Press the green button in the gutter to run the script.
+def get_sales(df):
+    return df[df.Action == "Market sell"]
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    args = sys.argv
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    if len(args) > 1:
+        main(args[1])
+    else:
+        print("Please specify as location for the .csv")
