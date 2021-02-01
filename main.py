@@ -13,12 +13,23 @@ def main(csv_file):
     sales = get_sales(df)
     dividends = get_dividends(df)
 
+    sales_gains = 0
+    sales_losses = 0
     sales_profit = 0
     dividends_profit = 0
 
     for index, row in sales.iterrows():
-        sales_profit += row["Result (GBP)"]
+        result = row["Result (GBP)"]
 
+        if result >= 0:
+            sales_gains += result
+        if result <= 0:
+            sales_losses += result
+
+        sales_profit += result
+
+    print("Sales Gains: £{:,.2f}".format(sales_gains))
+    print("Sales Losses: £{:,.2f}".format(sales_losses))
     print("Sales Profit: £{:,.2f}".format(sales_profit))
 
     for index, row in dividends.iterrows():
